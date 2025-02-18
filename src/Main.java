@@ -2,9 +2,9 @@ import java.io.IOException;
 import java.util.Random;
 
 public class Main {
+    private static final int TAM = 8;
     private static Random rand = new Random();
     private static int golpes = 0;
-    private static final int TAM = 8;
     private static int nivel = 5;
     private static int filaCorchete = 1;
     private static int columnaCorchete = 1;
@@ -18,6 +18,7 @@ public class Main {
 
         System.out.println("Nuevo ( N ) - Recomenzar ( R ) - Deshacer ( U ) - Salir ( S ) - Borrar Cal. (B)");
         generarTablero(nivel);
+        mostrarTableroConCorchetes();
 
         System.out.print("Nivel de juego ( L ): " + nivel);
         System.out.println("\t\tNuevo nivel");
@@ -31,8 +32,6 @@ public class Main {
         System.out.println("\tDejar todos los botones en 'O'");
 
 
-
-
     }
 
     public static void generarTablero(int nivel) {
@@ -40,11 +39,10 @@ public class Main {
         for (int i = 1; i < TAM - 1; i++) {
             for (int j = 1; j < TAM - 1; j++) {
                 tablero[i][j] = 0;
-                System.out.print(tablero[i][j] + " ");
             }
-            System.out.println();
         }
 
+        tableroCopia = tablero;
     }
 
     public static void mostrarTableroConCorchetes() {
@@ -56,6 +54,7 @@ public class Main {
                     System.out.print(" " + tablero[i][j] + " ");
                 }
             }
+            System.out.println();
         }
 
     }
