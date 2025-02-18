@@ -36,7 +36,7 @@ public class Main {
     }
 
     public static void generarTablero(int nivel) {
-        //Inicializar el tablero a 0
+        //Inicializar el tablero a 0 y mostrarlo
         for (int i = 1; i < TAM - 1; i++) {
             for (int j = 1; j < TAM - 1; j++) {
                 tablero[i][j] = 0;
@@ -45,11 +45,18 @@ public class Main {
             System.out.println();
         }
 
-
-
     }
 
     public static void mostrarTableroConCorchetes() {
+        for (int i = 1; i < TAM - 1; i++) {
+            for (int j = 1; j < TAM - 1; j++) {
+                if (i == filaCorchete && j == columnaCorchete) {
+                    System.out.print("[" + tablero[i][j] + "]");
+                } else {
+                    System.out.print(" " + tablero[i][j] + " ");
+                }
+            }
+        }
 
     }
 
@@ -59,13 +66,14 @@ public class Main {
 
     public static void golpear() {
 
-    }
-
-    public static void aumentar(){
 
     }
 
-    public static void decrementar() {
+    public static void aumentar(int filas, int columnas) {
+
+    }
+
+    public static void decrementar(int filas, int columnas) {
 
     }
 
