@@ -6,8 +6,8 @@ public class Main {
     private static Random rand = new Random();
     private static int golpes = 0;
     private static int nivel = 5;
-    private static int filaCorchete = 1;
-    private static int columnaCorchete = 1;
+    private static int filaPosicion = 1;
+    private static int columnaPosicion = 1;
     private static int[][] tablero = new int[TAM][TAM];
     private static int[][] tableroCopia = new int[TAM][TAM];
     private static int[] golpesFilas = new int[0];
@@ -16,9 +16,9 @@ public class Main {
 
     public static void main(String[] args) {
 
-        System.out.println("Nuevo ( N ) - Recomenzar ( R ) - Deshacer ( U ) - Salir ( S ) - Borrar Cal. (B)");
+        System.out.println("Nuevo ( N ) - Recomenzar ( R ) - Deshacer ( U ) - Salir ( S )");
+
         generarTablero(nivel);
-        mostrarTableroConCorchetes();
 
         System.out.print("Nivel de juego ( L ): " + nivel);
         System.out.println("\t\tNuevo nivel");
@@ -42,13 +42,10 @@ public class Main {
             }
         }
 
-        tableroCopia = tablero;
-    }
-
-    public static void mostrarTableroConCorchetes() {
+        //Mostrar el tablero con los corchetes que seleccionan una posición
         for (int i = 1; i < TAM - 1; i++) {
             for (int j = 1; j < TAM - 1; j++) {
-                if (i == filaCorchete && j == columnaCorchete) {
+                if (i == filaPosicion && j == columnaPosicion) {
                     System.out.print("[" + tablero[i][j] + "]");
                 } else {
                     System.out.print(" " + tablero[i][j] + " ");
@@ -60,11 +57,14 @@ public class Main {
     }
 
     public static void copiarTableroConCorchetes() {
-
+        for (int i = 1; i < TAM - 1; i++) {
+            for (int j = 1; j < TAM - 1; j++) {
+                tableroCopia[i][j] = tablero[i][j];
+            }
+        }
     }
 
     public static void golpear() {
-
 
     }
 
@@ -74,6 +74,32 @@ public class Main {
 
     public static void decrementar(int filas, int columnas) {
 
+    }
+
+    public static void moverArriba(int filas) {
+        if (filas == 1) {
+            filas = 6;
+        } else {
+            filas--;
+        }
+    }
+
+    public static void moverAbajo(int filas) {
+        if (filas == 6) {
+            filas = 1;
+        }
+    }
+
+    public static void moverIzquierda(int columnas) {
+        if (columnas == 1) {
+            columnas = 6;
+        }
+    }
+
+    public static void moverDerecha(int columnas) {
+        if (columnas == 6) {
+            columnas = 1;
+        }
     }
 
 
