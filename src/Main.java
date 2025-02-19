@@ -10,15 +10,34 @@ public class Main {
     private static int columnaPosicion = 1;
     private static int[][] tablero = new int[TAM][TAM];
     private static int[][] tableroCopia = new int[TAM][TAM];
-    private static int[] golpesFilas = new int[0];
-    private static int[] golpesColumnas = new int[0];
 
+    //Arrays para guardar los golpes y usarlos al utilizar deshacer
+    private int[] golpesFilas = new int[0];
+    private int[] golpesColumnas = new int[0];
+
+    private static void borrar() {
+        try {
+            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public static void main(String[] args) {
+        String opcion = "A";
+        generarTablero(nivel); //Generar tablero lleno de 0
 
+        //Limpiar pantalla antes de iniciar el juego (para cmd)
+        borrar();
+
+
+        //Mostrar interfaz
         System.out.println("Nuevo ( N ) - Recomenzar ( R ) - Deshacer ( U ) - Salir ( S )");
+        System.out.println();
 
-        generarTablero(nivel);
+        mostrarTablero(filaPosicion, columnaPosicion); //Mostrar el tablero generado, con la posición designada seleccionada (1,1)
 
         System.out.print("Nivel de juego ( L ): " + nivel);
         System.out.println("\t\tNuevo nivel");
@@ -42,6 +61,13 @@ public class Main {
             }
         }
 
+        golpear(nivel);
+
+        tableroCopia = tablero;
+
+    }
+
+    public static void mostrarTablero(int filaPosicion, int columnaPosicion) {
         //Mostrar el tablero con los corchetes que seleccionan una posición
         for (int i = 1; i < TAM - 1; i++) {
             for (int j = 1; j < TAM - 1; j++) {
@@ -53,27 +79,44 @@ public class Main {
             }
             System.out.println();
         }
-
     }
 
     public static void copiarTableroConCorchetes() {
         for (int i = 1; i < TAM - 1; i++) {
             for (int j = 1; j < TAM - 1; j++) {
-                tableroCopia[i][j] = tablero[i][j];
+                tablero[i][j] = tableroCopia[j][i];
             }
         }
     }
 
-    public static void golpear() {
+    public static void golpear(int nivel) {
+        Random rand = new Random();
 
+        for (int i = 1; i < nivel * 3; i++) {
+            int f = rand.nextInt(1, 7);
+            int c = rand.nextInt(1, 7);
+
+            aumentar(f, c);
+            aumentar(f + 1, c);
+            aumentar(f - 1, c);
+            aumentar(f, c - 1);
+            aumentar(f, c + 1);
+
+        }
     }
 
-    public static void aumentar(int filas, int columnas) {
-
+    public static void aumentar(int f, int c) {
+        tablero[f][c]++;
+        if (tablero[f][c] > 3) {
+            tablero[f][c] = 0;
+        }
     }
 
-    public static void decrementar(int filas, int columnas) {
-
+    public static void decrementar(int f, int c) {
+        tablero[f][c]--;
+        if (tablero[f][c] < 0) {
+            tablero[f][c] = 3;
+        }
     }
 
     public static void moverArriba(int filas) {
@@ -102,14 +145,36 @@ public class Main {
         }
     }
 
-
-    private static void borrar() {
-        try {
-            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+    public static void obtenerGolpedNivel() {
+        int opcion = nivel;
+        switch (opcion) {
+            case 1 -> {
+                int valor = 3;
+            }
+            case 2 -> {
+                int valor = 6;
+            }
+            case 3 -> {
+                int valor = 9;
+            }
+            case 4 -> {
+                int valor = 12;
+            }
+            case 5 -> {
+                int valor = 15;
+            }
+            case 6 -> {
+                int valor = 18;
+            }
+            case 7 -> {
+                int valor = 21;
+            }
+            case 8 -> {
+                int valor = 24;
+            }
+            case 9 -> {
+                int valor = 27;
+            }
         }
     }
 }
