@@ -84,29 +84,29 @@ public class Main {
         Random rand = new Random();
 
         for (int i = 1; i < nivel * 3; i++) {
-            int f = rand.nextInt(1, 7);
-            int c = rand.nextInt(1, 7);
+            int fila = rand.nextInt(1, 7);
+            int columna = rand.nextInt(1, 7);
 
-            aumentar(f, c);
-            aumentar(f + 1, c);
-            aumentar(f - 1, c);
-            aumentar(f, c - 1);
-            aumentar(f, c + 1);
+            aumentar(fila, columna);
+            aumentar(fila + 1, columna);
+            aumentar(fila - 1, columna);
+            aumentar(fila, columna - 1);
+            aumentar(fila, columna + 1);
 
         }
     }
 
-    public static void aumentar(int f, int c) {
-        tablero[f][c]++;
-        if (tablero[f][c] > 3) {
-            tablero[f][c] = 0;
+    public static void aumentar(int fila, int columna) {
+        tablero[fila][columna]++;
+        if (tablero[fila][columna] > 3) {
+            tablero[fila[columna = 0;
         }
     }
 
-    public static void decrementar(int f, int c) {
-        tablero[f][c]--;
-        if (tablero[f][c] < 0) {
-            tablero[f][c] = 3;
+    public static void decrementar(int fila, int columna) {
+        tablero[fila][columna]--;
+        if (tablero[fila][columna] < 0) {
+            tablero[fila][columna] = 3;
         }
     }
 
