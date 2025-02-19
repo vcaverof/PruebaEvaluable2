@@ -15,15 +15,6 @@ public class Main {
     private int[] golpesFilas = new int[0];
     private int[] golpesColumnas = new int[0];
 
-    private static void borrar() {
-        try {
-            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     public static void main(String[] args) {
         String opcion = "A";
@@ -145,7 +136,7 @@ public class Main {
         }
     }
 
-    public static void obtenerGolpedNivel() {
+    public static void obtenerGolpesNivel() {
         int opcion = nivel;
         switch (opcion) {
             case 1 -> {
@@ -175,6 +166,16 @@ public class Main {
             case 9 -> {
                 int valor = 27;
             }
+        }
+    }
+
+    private static void borrar() {
+        try {
+            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }
