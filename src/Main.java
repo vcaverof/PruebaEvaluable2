@@ -201,8 +201,25 @@ public class Main {
                     teclaRPressed = false;
                 }
 
+                // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
+                if ((User32.INSTANCE.GetAsyncKeyState(TECLA_3) & 0x8000) != 0) {
+                    if (!tecla3Pressed) {
+
+                        nivel = 3;
+                        tecla3Pressed = true;
+                        break;
+                    }
+                } else {
+                    tecla3Pressed = false;
+                }
+
 
             }
+
+            if (comprobarGanador()) {
+                System.out.println("Enhorabuena, has ganado");
+            }
+
         } while (!opcion.equals("S"));
 
     }
@@ -336,6 +353,19 @@ public class Main {
                 int valor = 27;
             }
         }
+    }
+
+    private static boolean comprobarGanador() {
+        boolean ganador = false;
+        for (int i = 1; i < TAM - 1; i++) {
+            for (int j = 1; j < TAM - 1; j++) {
+                if (tablero[i][j] == 0) {
+                    ganador = true;
+                    break;
+                }
+            }
+        }
+        return ganador;
     }
 
     private static void borrar() {
