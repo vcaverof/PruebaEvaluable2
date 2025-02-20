@@ -148,6 +148,8 @@ public class Main {
                         decrementar(filaPosicion, columnaPosicion - 1);
                         decrementar(filaPosicion, columnaPosicion + 1);
 
+                        golpes++;
+
                         enterPressed = true;
                         break;
                     }
@@ -171,6 +173,7 @@ public class Main {
                     if (!teclaNPressed) {
                         teclaNPressed = true;
                         generarTablero(nivel); //Generar un nuevo tablero en el nivel que estamos
+                        golpes = 0;
                         break;
                     }
                 } else {
@@ -192,7 +195,6 @@ public class Main {
                 if ((User32.INSTANCE.GetAsyncKeyState(TECLA_R) & 0x8000) != 0) {
                     if (!teclaRPressed) {
                         teclaRPressed = true;
-                        generarTablero(nivel); //Generar un nuevo tablero en el nivel que estamos
                         break;
                     }
                 } else {
