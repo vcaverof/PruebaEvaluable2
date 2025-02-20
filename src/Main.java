@@ -4,6 +4,8 @@ import java.util.Random;
 import com.sun.jna.*;
 import com.sun.jna.platform.win32.User32;
 
+//java -cp ".;libs/jna.jar;libs/jnaplatform.jar" PracticaEvaluable2
+
 public class Main {
 
     //Variables de los botones que vamos a utilizar
@@ -88,78 +90,119 @@ public class Main {
             System.out.println("\ty también a los valores de sus 4 vecinos.");
             System.out.println("Objetivo:");
             System.out.println("\tDejar todos los botones en 'O'");
-        } while (opcion.equals("S"));
 
-        // Bucle para detectar las pulsaciones de teclas
-        while (true) {
-            // Verifica si la tecla de flecha arriba es presionada y aún no ha sido registrada
-            if ((User32.INSTANCE.GetAsyncKeyState(VK_UP) & 0x8000) != 0) {
-                if (!upPressed) {
-                    moverArriba(filaPosicion);
-                    upPressed = true; //Mover los corchetes hacia arriba
-                    break;
+            // Bucle para detectar las pulsaciones de teclas
+            while (true) {
+                // Verifica si la tecla de flecha arriba es presionada y aún no ha sido registrada
+                if ((User32.INSTANCE.GetAsyncKeyState(VK_UP) & 0x8000) != 0) {
+                    if (!upPressed) {
+                        moverArriba(filaPosicion);
+                        upPressed = true; //Mover los corchetes hacia arriba
+                        break;
+                    }
+                } else {
+                    upPressed = false;// Restablecemos el estado cuando la tecla se ha soltado
                 }
-            } else {
-                upPressed = false;// Restablecemos el estado cuando la tecla se ha soltado
-            }
 
-            // Verifica si la tecla de flecha abajo es presionada y aún no ha sido registrada
-            if ((User32.INSTANCE.GetAsyncKeyState(VK_DOWN) & 0x8000) != 0) {
-                if (!downPressed) {
-                    moverAbajo(filaPosicion); //Mover los corchetes hacia abajo
-                    downPressed = true;
-                    break;
+                // Verifica si la tecla de flecha abajo es presionada y aún no ha sido registrada
+                if ((User32.INSTANCE.GetAsyncKeyState(VK_DOWN) & 0x8000) != 0) {
+                    if (!downPressed) {
+                        moverAbajo(filaPosicion); //Mover los corchetes hacia abajo
+                        downPressed = true;
+                        break;
+                    }
+                } else {
+                    downPressed = false;
                 }
-            } else {
-                downPressed = false;
-            }
 
-            // Verifica si la tecla de flecha izquierda es presionada y aún no ha sido registrada
-            if ((User32.INSTANCE.GetAsyncKeyState(VK_LEFT) & 0x8000) != 0) {
-                if (!leftPressed) {
-                    moverIzquierda(columnaPosicion); //Mover los corchetes a la izquierda
-                    leftPressed = true;
-                    break;
+                // Verifica si la tecla de flecha izquierda es presionada y aún no ha sido registrada
+                if ((User32.INSTANCE.GetAsyncKeyState(VK_LEFT) & 0x8000) != 0) {
+                    if (!leftPressed) {
+                        moverIzquierda(columnaPosicion); //Mover los corchetes a la izquierda
+                        leftPressed = true;
+                        break;
+                    }
+                } else {
+                    leftPressed = false;
                 }
-            } else {
-                leftPressed = false;
-            }
 
-            // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
-            if ((User32.INSTANCE.GetAsyncKeyState(VK_RIGHT) & 0x8000) != 0) {
-                if (!rightPressed) {
-                    moverDerecha(columnaPosicion); //Mover los corchetes a la derecha
-                    rightPressed = true;
-                    break;
+                // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
+                if ((User32.INSTANCE.GetAsyncKeyState(VK_RIGHT) & 0x8000) != 0) {
+                    if (!rightPressed) {
+                        moverDerecha(columnaPosicion); //Mover los corchetes a la derecha
+                        rightPressed = true;
+                        break;
+                    }
+                } else {
+                    rightPressed = false;
                 }
-            } else {
-                rightPressed = false;
-            }
 
-            // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
-            if ((User32.INSTANCE.GetAsyncKeyState(TECLA_S) & 0x8000) != 0) {
-                if (!teclaSPressed) {
-                    teclaSPressed = true;
-                    opcion = "S"; //Cambiar el valor de opcion a S para salir del bucle y finalizar el juego
-                    break;
+                // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
+                if ((User32.INSTANCE.GetAsyncKeyState(VK_RETURN) & 0x8000) != 0) {
+                    if (!enterPressed) {
+
+                        //Generar el golpe al pulsar ENTER, en la casilla que tengamos seleccionada (entre corchetes)
+                        decrementar(filaPosicion, columnaPosicion);
+                        decrementar(filaPosicion + 1, columnaPosicion);
+                        decrementar(filaPosicion - 1, columnaPosicion);
+                        decrementar(filaPosicion, columnaPosicion - 1);
+                        decrementar(filaPosicion, columnaPosicion + 1);
+
+                        enterPressed = true;
+                        break;
+                    }
+                } else {
+                    enterPressed = false;
                 }
-            } else {
-                teclaSPressed = false;
-            }
 
-            // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
-            if ((User32.INSTANCE.GetAsyncKeyState(TECLA_N) & 0x8000) != 0) {
-                if (!teclaNPressed) {
-                    teclaNPressed = true;
-                    generarTablero(nivel); //Generar un nuevo tablero en el nivel que estamos
-                    break;
+                // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
+                if ((User32.INSTANCE.GetAsyncKeyState(TECLA_S) & 0x8000) != 0) {
+                    if (!teclaSPressed) {
+                        teclaSPressed = true;
+                        opcion = "S"; //Cambiar el valor de opcion a S para salir del bucle y finalizar el juego
+                        break;
+                    }
+                } else {
+                    teclaSPressed = false;
                 }
-            } else {
-                teclaNPressed = false;
+
+                // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
+                if ((User32.INSTANCE.GetAsyncKeyState(TECLA_N) & 0x8000) != 0) {
+                    if (!teclaNPressed) {
+                        teclaNPressed = true;
+                        generarTablero(nivel); //Generar un nuevo tablero en el nivel que estamos
+                        break;
+                    }
+                } else {
+                    teclaNPressed = false;
+                }
+
+                // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
+                if ((User32.INSTANCE.GetAsyncKeyState(TECLA_U) & 0x8000) != 0) {
+                    if (!teclaUPressed) {
+                        teclaUPressed = true;
+                        generarTablero(nivel); //Generar un nuevo tablero en el nivel que estamos
+                        break;
+                    }
+                } else {
+                    teclaUPressed = false;
+                }
+
+                // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
+                if ((User32.INSTANCE.GetAsyncKeyState(TECLA_R) & 0x8000) != 0) {
+                    if (!teclaRPressed) {
+                        teclaRPressed = true;
+                        generarTablero(nivel); //Generar un nuevo tablero en el nivel que estamos
+                        break;
+                    }
+                } else {
+                    teclaRPressed = false;
+                }
+
+
             }
+        } while (!opcion.equals("S"));
 
-
-        }
     }
 
     public static void generarTablero(int nivel) {
@@ -230,33 +273,39 @@ public class Main {
 
     public static void moverArriba(int filas) {
         if (filas == 1) {
-            filas = 6;
+            filaPosicion = 6;
         } else {
-            filas--;
+            filaPosicion--;
         }
     }
 
     public static void moverAbajo(int filas) {
         if (filas == 6) {
-            filas = 1;
+            filaPosicion = 1;
+        } else {
+            filaPosicion++;
         }
     }
 
     public static void moverIzquierda(int columnas) {
         if (columnas == 1) {
-            columnas = 6;
+            columnaPosicion = 6;
+        } else {
+            columnaPosicion--;
         }
     }
 
     public static void moverDerecha(int columnas) {
         if (columnas == 6) {
-            columnas = 1;
+            columnaPosicion = 1;
+        } else {
+            columnaPosicion++;
         }
     }
 
     public static void obtenerGolpesNivel() {
-        int opcion = nivel;
-        switch (opcion) {
+        int niveles = nivel;
+        switch (niveles) {
             case 1 -> {
                 int valor = 3;
             }
