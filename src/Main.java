@@ -64,7 +64,15 @@ public class Main {
     private int[] golpesFilas = new int[0];
     private int[] golpesColumnas = new int[0];
 
+    public interface Kernel32 extends com.sun.jna.platform.win32.Kernel32 {
+        Kernel32 INSTANCE = (Kernel32) Native.load("user32", User32.class);
+
+        // Definir la función de Windows que lee un carácter de la consola
+        boolean GetAsyncKeyState(int vKey);
+    }
+
     public static void main(String[] args) {
+
 
         String opcion = "A";
         generarTablero(nivel); //Generar tablero lleno de 0
@@ -201,17 +209,7 @@ public class Main {
                     teclaRPressed = false;
                 }
 
-                // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
-                if ((User32.INSTANCE.GetAsyncKeyState(TECLA_3) & 0x8000) != 0) {
-                    if (!tecla3Pressed) {
 
-                        nivel = 3;
-                        tecla3Pressed = true;
-                        break;
-                    }
-                } else {
-                    tecla3Pressed = false;
-                }
 
 
             }
@@ -322,7 +320,7 @@ public class Main {
         }
     }
 
-    public static void obtenerGolpesNivel() {
+    public static int obtenerGolpesNivel() {
         int niveles = nivel;
         switch (niveles) {
             case 1 -> {
@@ -353,6 +351,7 @@ public class Main {
                 int valor = 27;
             }
         }
+        return niveles;
     }
 
     private static boolean comprobarGanador() {
@@ -378,11 +377,6 @@ public class Main {
         }
     }
 
-    public interface Kernel32 extends com.sun.jna.platform.win32.Kernel32 {
-        Kernel32 INSTANCE = (Kernel32) Native.load("user32", User32.class);
 
-        // Definir la función de Windows que lee un carácter de la consola
-        boolean GetAsyncKeyState(int vKey);
-    }
 
 }
