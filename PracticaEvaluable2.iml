@@ -10,7 +10,7 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/jna-platform.jar!/" />
+          <root url="jar://$USER_HOME$/Documents/NO TOCAR/Librerias Mover Flechas/jna-platform.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -19,7 +19,7 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/jna.jar!/" />
+          <root url="jar://$USER_HOME$/Documents/NO TOCAR/Librerias Mover Flechas/jna.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
