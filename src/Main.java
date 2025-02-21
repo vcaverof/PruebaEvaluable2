@@ -2,9 +2,10 @@ import java.io.IOException;
 import java.util.Random;
 
 import com.sun.jna.*;
+import com.sun.jna.platform.win32.Kernel32;
 import com.sun.jna.platform.win32.User32;
 
-//java -cp ".;libs/jna.jar;libs/jnaplatform.jar" PracticaEvaluable2
+//java -cp ".;libs/jna.jar;libs/jnaplatform.jar" Main
 
 public class Main {
 
@@ -63,13 +64,6 @@ public class Main {
     //Arrays para guardar los golpes y usarlos al utilizar deshacer
     private int[] golpesFilas = new int[0];
     private int[] golpesColumnas = new int[0];
-
-    public interface Kernel32 extends com.sun.jna.platform.win32.Kernel32 {
-        Kernel32 INSTANCE = (Kernel32) Native.load("user32", User32.class);
-
-        // Definir la función de Windows que lee un carácter de la consola
-        boolean GetAsyncKeyState(int vKey);
-    }
 
     public static void main(String[] args) {
 
@@ -209,7 +203,105 @@ public class Main {
                     teclaRPressed = false;
                 }
 
+                // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
+                if ((User32.INSTANCE.GetAsyncKeyState(TECLA_1) & 0x8000) != 0) {
+                    if (!tecla1Pressed) {
+                        nivel = 1;
+                        tecla1Pressed = true;
+                        break;
+                    }
+                } else {
+                    teclaRPressed = false;
+                }
 
+                // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
+                if ((User32.INSTANCE.GetAsyncKeyState(TECLA_2) & 0x8000) != 0) {
+                    if (!tecla2Pressed) {
+                        nivel = 2;
+                        tecla1Pressed = true;
+                        break;
+                    }
+                } else {
+                    tecla1Pressed = false;
+                }
+
+                // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
+                if ((User32.INSTANCE.GetAsyncKeyState(TECLA_3) & 0x8000) != 0) {
+                    if (!tecla3Pressed) {
+                        nivel = 3;
+                        tecla3Pressed = true;
+                        break;
+                    }
+                } else {
+                    tecla3Pressed = false;
+                }
+
+                // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
+                if ((User32.INSTANCE.GetAsyncKeyState(TECLA_4) & 0x8000) != 0) {
+                    if (!tecla4Pressed) {
+                        nivel = 4;
+                        tecla4Pressed = true;
+                        break;
+                    }
+                } else {
+                    tecla4Pressed = false;
+                }
+
+
+                // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
+                if ((User32.INSTANCE.GetAsyncKeyState(TECLA_5) & 0x8000) != 0) {
+                    if (!tecla5Pressed) {
+                        nivel = 5;
+                        tecla5Pressed = true;
+                        break;
+                    }
+                } else {
+                    tecla5Pressed = false;
+                }
+
+                // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
+                if ((User32.INSTANCE.GetAsyncKeyState(TECLA_6) & 0x8000) != 0) {
+                    if (!tecla6Pressed) {
+                        nivel = 6;
+                        tecla6Pressed = true;
+                        break;
+                    }
+                } else {
+                    tecla6Pressed = false;
+                }
+
+                // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
+                if ((User32.INSTANCE.GetAsyncKeyState(TECLA_7) & 0x8000) != 0) {
+                    if (!tecla7Pressed) {
+                        nivel = 7;
+                        tecla7Pressed = true;
+                        break;
+                    }
+                } else {
+                    tecla7Pressed = false;
+                }
+
+                // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
+                if ((User32.INSTANCE.GetAsyncKeyState(TECLA_8) & 0x8000) != 0) {
+                    if (!tecla8Pressed) {
+                        nivel = 8;
+                        tecla8Pressed = true;
+                        break;
+                    }
+                } else {
+                    tecla8Pressed = false;
+                }
+
+                // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
+                if ((User32.INSTANCE.GetAsyncKeyState(TECLA_9) & 0x8000) != 0) {
+                    if (!tecla9Pressed) {
+                        nivel = 9;
+                        tecla9Pressed = true;
+                        break;
+                    }
+                } else {
+                    tecla9Pressed = false;
+                }
 
 
             }
@@ -321,37 +413,37 @@ public class Main {
     }
 
     public static int obtenerGolpesNivel() {
-        int niveles = nivel;
-        switch (niveles) {
+        int golpesNivel = 0;
+        switch (nivel) {
             case 1 -> {
-                int valor = 3;
+                golpesNivel = 3;
             }
             case 2 -> {
-                int valor = 6;
+                golpesNivel = 6;
             }
             case 3 -> {
-                int valor = 9;
+                golpesNivel = 9;
             }
             case 4 -> {
-                int valor = 12;
+                golpesNivel = 12;
             }
             case 5 -> {
-                int valor = 15;
+                golpesNivel = 15;
             }
             case 6 -> {
-                int valor = 18;
+                golpesNivel = 18;
             }
             case 7 -> {
-                int valor = 21;
+                golpesNivel = 21;
             }
             case 8 -> {
-                int valor = 24;
+                golpesNivel = 24;
             }
             case 9 -> {
-                int valor = 27;
+                golpesNivel = 27;
             }
         }
-        return niveles;
+        return golpesNivel;
     }
 
     private static boolean comprobarGanador() {
@@ -377,6 +469,12 @@ public class Main {
         }
     }
 
+    public interface Kernel32 extends com.sun.jna.platform.win32.Kernel32 {
+        Kernel32 INSTANCE = (Kernel32) Native.load("user32", User32.class);
+
+        // Definir la función de Windows que lee un carácter de la consola
+        boolean GetAsyncKeyState(int vKey);
+    }
 
 
 }
