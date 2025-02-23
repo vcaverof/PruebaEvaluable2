@@ -61,8 +61,8 @@ public class Main {
 
 
     //Arrays para guardar los golpes y usarlos al utilizar deshacer
-    private int[] golpesFilas = new int[100];
-    private int[] golpesColumnas = new int[100];
+    private static int[] golpesFilas = new int[100];
+    private static int[] golpesColumnas = new int[100];
 
     public static void main(String[] args) {
 
@@ -185,8 +185,15 @@ public class Main {
                 // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
                 if ((User32.INSTANCE.GetAsyncKeyState(TECLA_U) & 0x8000) != 0) {
                     if (!teclaUPressed) {
+                        if (golpes > 0) {
+                            deshacerGolpe();
+                            golpes--;
+                            if (golpes == 0) {
+                                golpesFilas = new int[100];
+                                golpesColumnas = new int[100];
+                            }
+                        }
                         teclaUPressed = true;
-                        generarTablero(); //Generar un nuevo tablero en el nivel que estamos
                         break;
                     }
                 } else {
@@ -409,7 +416,6 @@ public class Main {
         }
     }
 
-
     public static void golpear() {
         for (int i = 0; i < nivel * 3; i++) {
             int fila = rand.nextInt(1, 7);
@@ -432,6 +438,9 @@ public class Main {
     }
 
     public static void decrementar(int fila, int columna) {
+        golpesFilas[golpes] = filaPosicion;
+        golpesColumnas[golpes] = columnaPosicion;
+
         tablero[fila][columna]--;
         if (tablero[fila][columna] < 0) {
             tablero[fila][columna] = 3;
@@ -502,6 +511,19 @@ public class Main {
             }
         }
         return golpesNivel;
+    }
+
+    public static void deshacerGolpe() {
+        if (golpes > 0) {
+            int fila = golpesFilas[golpes - 1];
+            int columna = golpesColumnas[golpes - 1];
+
+            aumentar(fila, columna);
+            aumentar(fila + 1, columna);
+            aumentar(fila - 1, columna);
+            aumentar(fila, columna - 1);
+            aumentar(fila, columna + 1);
+        }
     }
 
     public static boolean comprobarGanador() {
