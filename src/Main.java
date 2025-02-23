@@ -28,7 +28,7 @@ public class Main {
     public static final int TECLA_U = 0x55;
     public static final int TECLA_S = 0x53;
     public static final int TECLA_L = 0x4C;
-    public static final int TAM = 8;
+    public static final int TAM = 5;
 
     private static Random rand = new Random();
     private static int golpes = 0;
@@ -375,8 +375,11 @@ public class Main {
     public static void generarTablero() {
         //Inicializar el tablero a 0 y mostrarlo
         for (int i = 1; i < TAM - 1; i++) {
+
+
             for (int j = 1; j < TAM - 1; j++) {
                 tablero[i][j] = 0;
+
             }
         }
 
@@ -418,8 +421,8 @@ public class Main {
 
     public static void golpear() {
         for (int i = 0; i < nivel * 3; i++) {
-            int fila = rand.nextInt(1, 7);
-            int columna = rand.nextInt(1, 7);
+            int fila = rand.nextInt(1, TAM - 1);
+            int columna = rand.nextInt(1, TAM - 1);
 
             aumentar(fila, columna);
             aumentar(fila + 1, columna);
