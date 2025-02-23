@@ -331,6 +331,12 @@ public class Main {
                 }
             }
 
+            //Para poner un límite de golpes al juego
+            //if (golpes > nivel * 3) {
+            //System.out.println("Has perdido");
+            // break;
+            //}
+
             if (comprobarGanador()) {
                 int obtenerGolpesEsperados = obtenerGolpesNivel();
                 System.out.println("Enhorabuena, has ganado");
@@ -363,18 +369,14 @@ public class Main {
                 }
             }
 
-
         } while (!opcion.equals("S"));
     }
 
     public static void generarTablero() {
         //Inicializar el tablero a 0 y mostrarlo
         for (int i = 1; i < TAM - 1; i++) {
-
-
             for (int j = 1; j < TAM - 1; j++) {
                 tablero[i][j] = 0;
-
             }
         }
 
