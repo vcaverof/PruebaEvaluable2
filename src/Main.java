@@ -28,11 +28,11 @@ public class Main {
     public static final int TECLA_U = 0x55;
     public static final int TECLA_S = 0x53;
     public static final int TECLA_L = 0x4C;
-    public static final int TAM = 5;
+    public static final int TAM = 8;
 
     private static Random rand = new Random();
     private static int golpes = 0;
-    private static int nivel = 1;
+    private static int nivel = 5;
     private static int filaPosicion = 1;
     private static int columnaPosicion = 1;
     private static int[][] tablero = new int[TAM][TAM];
