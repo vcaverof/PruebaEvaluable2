@@ -66,7 +66,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-
         String opcion = "A";
         generarTablero(); //Generar tablero lleno de 0
 
@@ -330,10 +329,7 @@ public class Main {
                     teclaLPressed = false;
 
                 }
-
-
             }
-
 
             if (comprobarGanador()) {
                 int obtenerGolpesEsperados = obtenerGolpesNivel();
@@ -369,7 +365,6 @@ public class Main {
 
 
         } while (!opcion.equals("S"));
-
     }
 
     public static void generarTablero() {
