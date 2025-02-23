@@ -174,7 +174,7 @@ public class Main {
                         teclaNPressed = true;
                         generarTablero(); //Generar un nuevo tablero en el nivel que estamos
                         golpes = 0;
-                        tableroCopia = tablero;
+                        recuperarTablero();
                         break;
                     }
                 } else {
@@ -202,7 +202,6 @@ public class Main {
                 // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
                 if ((User32.INSTANCE.GetAsyncKeyState(TECLA_R) & 0x8000) != 0) {
                     if (!teclaRPressed) {
-
                         recuperarTablero();
                         teclaRPressed = true;
                         break;
