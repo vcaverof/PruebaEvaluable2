@@ -2,10 +2,9 @@ import java.io.IOException;
 import java.util.Random;
 
 import com.sun.jna.*;
-import com.sun.jna.platform.win32.Kernel32;
 import com.sun.jna.platform.win32.User32;
 
-//java -cp ".;libs/jna.jar;libs/jnaplatform.jar" Main
+// java -cp ".;libs/jna.jar;libs/jna-platform.jar" Main
 
 public class Main {
 
@@ -28,9 +27,9 @@ public class Main {
     public static final int TECLA_R = 0x52;
     public static final int TECLA_U = 0x55;
     public static final int TECLA_S = 0x53;
+    public static final int TECLA_L = 0x4C;
+    public static final int TAM = 8;
 
-
-    private static final int TAM = 8;
     private static Random rand = new Random();
     private static int golpes = 0;
     private static int nivel = 1;
@@ -38,7 +37,6 @@ public class Main {
     private static int columnaPosicion = 1;
     private static int[][] tablero = new int[TAM][TAM];
     private static int[][] tableroCopia = new int[TAM][TAM];
-
 
     // Variables para mantener el estado de las teclas
     private static boolean upPressed = false;
@@ -59,17 +57,18 @@ public class Main {
     private static boolean teclaRPressed = false;
     private static boolean teclaUPressed = false;
     private static boolean teclaSPressed = false;
+    private static boolean teclaLPressed = false;
 
 
     //Arrays para guardar los golpes y usarlos al utilizar deshacer
-    private int[] golpesFilas = new int[0];
-    private int[] golpesColumnas = new int[0];
+    private int[] golpesFilas = new int[100];
+    private int[] golpesColumnas = new int[100];
 
     public static void main(String[] args) {
 
 
         String opcion = "A";
-        generarTablero(nivel); //Generar tablero lleno de 0
+        generarTablero(); //Generar tablero lleno de 0
 
         do {
             //Limpiar pantalla antes de iniciar el juego (para cmd)
@@ -174,8 +173,9 @@ public class Main {
                 if ((User32.INSTANCE.GetAsyncKeyState(TECLA_N) & 0x8000) != 0) {
                     if (!teclaNPressed) {
                         teclaNPressed = true;
-                        generarTablero(nivel); //Generar un nuevo tablero en el nivel que estamos
+                        generarTablero(); //Generar un nuevo tablero en el nivel que estamos
                         golpes = 0;
+                        tableroCopia = tablero;
                         break;
                     }
                 } else {
@@ -186,7 +186,7 @@ public class Main {
                 if ((User32.INSTANCE.GetAsyncKeyState(TECLA_U) & 0x8000) != 0) {
                     if (!teclaUPressed) {
                         teclaUPressed = true;
-                        generarTablero(nivel); //Generar un nuevo tablero en el nivel que estamos
+                        generarTablero(); //Generar un nuevo tablero en el nivel que estamos
                         break;
                     }
                 } else {
@@ -196,125 +196,176 @@ public class Main {
                 // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
                 if ((User32.INSTANCE.GetAsyncKeyState(TECLA_R) & 0x8000) != 0) {
                     if (!teclaRPressed) {
+
+                        recuperarTablero();
                         teclaRPressed = true;
                         break;
                     }
                 } else {
                     teclaRPressed = false;
+
                 }
 
                 // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
-                if ((User32.INSTANCE.GetAsyncKeyState(TECLA_1) & 0x8000) != 0) {
-                    if (!tecla1Pressed) {
-                        nivel = 1;
-                        tecla1Pressed = true;
+
+                if ((User32.INSTANCE.GetAsyncKeyState(TECLA_L) & 0x8000) != 0) {
+                    if (!teclaLPressed) {
+                        System.out.print("Nivel de juego ( L ): " + nivel + "\t\tNuevo nivel: ");
+                        while (true) {
+                            // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
+                            if ((User32.INSTANCE.GetAsyncKeyState(TECLA_1) & 0x8000) != 0) {
+                                if (!tecla1Pressed) {
+                                    nivel = 1;
+                                    tecla1Pressed = true;
+                                    break;
+                                }
+                            } else {
+                                teclaRPressed = false;
+                            }
+
+                            // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
+                            if ((User32.INSTANCE.GetAsyncKeyState(TECLA_2) & 0x8000) != 0) {
+                                if (!tecla2Pressed) {
+                                    nivel = 2;
+                                    tecla1Pressed = true;
+
+                                    break;
+                                }
+                            } else {
+                                tecla1Pressed = false;
+                            }
+
+                            // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
+                            if ((User32.INSTANCE.GetAsyncKeyState(TECLA_3) & 0x8000) != 0) {
+                                if (!tecla3Pressed) {
+                                    nivel = 3;
+                                    tecla3Pressed = true;
+
+                                    break;
+                                }
+                            } else {
+                                tecla3Pressed = false;
+                            }
+
+                            // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
+                            if ((User32.INSTANCE.GetAsyncKeyState(TECLA_4) & 0x8000) != 0) {
+                                if (!tecla4Pressed) {
+                                    nivel = 4;
+                                    tecla4Pressed = true;
+                                    break;
+                                }
+                            } else {
+                                tecla4Pressed = false;
+                            }
+
+
+                            // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
+                            if ((User32.INSTANCE.GetAsyncKeyState(TECLA_5) & 0x8000) != 0) {
+                                if (!tecla5Pressed) {
+                                    nivel = 5;
+                                    tecla5Pressed = true;
+                                    break;
+                                }
+                            } else {
+                                tecla5Pressed = false;
+                            }
+
+                            // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
+                            if ((User32.INSTANCE.GetAsyncKeyState(TECLA_6) & 0x8000) != 0) {
+                                if (!tecla6Pressed) {
+                                    nivel = 6;
+                                    tecla6Pressed = true;
+                                    break;
+                                }
+                            } else {
+                                tecla6Pressed = false;
+                            }
+
+                            // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
+                            if ((User32.INSTANCE.GetAsyncKeyState(TECLA_7) & 0x8000) != 0) {
+                                if (!tecla7Pressed) {
+                                    nivel = 7;
+                                    tecla7Pressed = true;
+                                    break;
+                                }
+                            } else {
+                                tecla7Pressed = false;
+                            }
+
+                            // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
+                            if ((User32.INSTANCE.GetAsyncKeyState(TECLA_8) & 0x8000) != 0) {
+                                if (!tecla8Pressed) {
+                                    nivel = 8;
+                                    tecla8Pressed = true;
+                                    break;
+                                }
+                            } else {
+                                tecla8Pressed = false;
+                            }
+
+                            // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
+                            if ((User32.INSTANCE.GetAsyncKeyState(TECLA_9) & 0x8000) != 0) {
+                                if (!tecla9Pressed) {
+                                    nivel = 9;
+                                    tecla9Pressed = true;
+                                    break;
+                                }
+                            } else {
+                                tecla9Pressed = false;
+                            }
+                        }
+
+                        generarTablero();
+                        teclaLPressed = true;
                         break;
                     }
                 } else {
-                    teclaRPressed = false;
-                }
+                    teclaLPressed = false;
 
-                // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
-                if ((User32.INSTANCE.GetAsyncKeyState(TECLA_2) & 0x8000) != 0) {
-                    if (!tecla2Pressed) {
-                        nivel = 2;
-                        tecla1Pressed = true;
-                        break;
-                    }
-                } else {
-                    tecla1Pressed = false;
-                }
-
-                // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
-                if ((User32.INSTANCE.GetAsyncKeyState(TECLA_3) & 0x8000) != 0) {
-                    if (!tecla3Pressed) {
-                        nivel = 3;
-                        tecla3Pressed = true;
-                        break;
-                    }
-                } else {
-                    tecla3Pressed = false;
-                }
-
-                // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
-                if ((User32.INSTANCE.GetAsyncKeyState(TECLA_4) & 0x8000) != 0) {
-                    if (!tecla4Pressed) {
-                        nivel = 4;
-                        tecla4Pressed = true;
-                        break;
-                    }
-                } else {
-                    tecla4Pressed = false;
-                }
-
-
-                // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
-                if ((User32.INSTANCE.GetAsyncKeyState(TECLA_5) & 0x8000) != 0) {
-                    if (!tecla5Pressed) {
-                        nivel = 5;
-                        tecla5Pressed = true;
-                        break;
-                    }
-                } else {
-                    tecla5Pressed = false;
-                }
-
-                // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
-                if ((User32.INSTANCE.GetAsyncKeyState(TECLA_6) & 0x8000) != 0) {
-                    if (!tecla6Pressed) {
-                        nivel = 6;
-                        tecla6Pressed = true;
-                        break;
-                    }
-                } else {
-                    tecla6Pressed = false;
-                }
-
-                // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
-                if ((User32.INSTANCE.GetAsyncKeyState(TECLA_7) & 0x8000) != 0) {
-                    if (!tecla7Pressed) {
-                        nivel = 7;
-                        tecla7Pressed = true;
-                        break;
-                    }
-                } else {
-                    tecla7Pressed = false;
-                }
-
-                // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
-                if ((User32.INSTANCE.GetAsyncKeyState(TECLA_8) & 0x8000) != 0) {
-                    if (!tecla8Pressed) {
-                        nivel = 8;
-                        tecla8Pressed = true;
-                        break;
-                    }
-                } else {
-                    tecla8Pressed = false;
-                }
-
-                // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
-                if ((User32.INSTANCE.GetAsyncKeyState(TECLA_9) & 0x8000) != 0) {
-                    if (!tecla9Pressed) {
-                        nivel = 9;
-                        tecla9Pressed = true;
-                        break;
-                    }
-                } else {
-                    tecla9Pressed = false;
                 }
 
 
             }
+
 
             if (comprobarGanador()) {
+                int obtenerGolpesEsperados = obtenerGolpesNivel();
                 System.out.println("Enhorabuena, has ganado");
+
+                if (obtenerGolpesEsperados == golpes) {
+                    System.out.println("Perfecto. Hecho en: " + golpes + " golpes");
+                } else if (obtenerGolpesEsperados < golpes) {
+                    System.out.println("Extraordinariamente bien. Hecho en: " + golpes + " golpes");
+                } else {
+                    System.out.println("Hecho en: " + golpes + " golpes");
+                }
+
+                System.out.println("Nivel alcanzado: " + nivel);
+                System.out.println("Presiona enter para continuar con un nuevo tablero ");
+
+                while (true) {
+                    // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
+                    if ((User32.INSTANCE.GetAsyncKeyState(VK_RETURN) & 0x8000) != 0) {
+                        if (!enterPressed) {
+
+                            generarTablero();
+                            golpes = 0;
+
+                            enterPressed = true;
+                            break;
+                        }
+                    } else {
+                        enterPressed = false;
+                    }
+                }
             }
+
 
         } while (!opcion.equals("S"));
 
     }
 
-    public static void generarTablero(int nivel) {
+    public static void generarTablero() {
         //Inicializar el tablero a 0 y mostrarlo
         for (int i = 1; i < TAM - 1; i++) {
             for (int j = 1; j < TAM - 1; j++) {
@@ -322,9 +373,9 @@ public class Main {
             }
         }
 
-        golpear(nivel);
+        golpear();
 
-        tableroCopia = tablero;
+        copiarTablero();
 
     }
 
@@ -342,18 +393,25 @@ public class Main {
         }
     }
 
-    public static void copiarTableroConCorchetes() {
+    public static void copiarTablero() {
         for (int i = 1; i < TAM - 1; i++) {
             for (int j = 1; j < TAM - 1; j++) {
-                tablero[i][j] = tableroCopia[j][i];
+                tableroCopia[i][j] = tablero[i][j];
             }
         }
     }
 
-    public static void golpear(int nivel) {
-        Random rand = new Random();
+    public static void recuperarTablero() {
+        for (int i = 1; i < TAM - 1; i++) {
+            for (int j = 1; j < TAM - 1; j++) {
+                tablero[i][j] = tableroCopia[i][j];
+            }
+        }
+    }
 
-        for (int i = 1; i < nivel * 3; i++) {
+
+    public static void golpear() {
+        for (int i = 0; i < nivel * 3; i++) {
             int fila = rand.nextInt(1, 7);
             int columna = rand.nextInt(1, 7);
 
@@ -446,20 +504,20 @@ public class Main {
         return golpesNivel;
     }
 
-    private static boolean comprobarGanador() {
-        boolean ganador = false;
+    public static boolean comprobarGanador() {
+        boolean esta = true;
         for (int i = 1; i < TAM - 1; i++) {
             for (int j = 1; j < TAM - 1; j++) {
-                if (tablero[i][j] == 0) {
-                    ganador = true;
+                if (tablero[i][j] != 0) {
+                    esta = false;
                     break;
                 }
             }
         }
-        return ganador;
+        return esta;
     }
 
-    private static void borrar() {
+    public static void borrar() {
         try {
             new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
         } catch (InterruptedException e) {
