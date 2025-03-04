@@ -142,18 +142,7 @@ public class Main {
                 if ((User32.INSTANCE.GetAsyncKeyState(VK_RETURN) & 0x8000) != 0) {
                     if (!enterPressed) {
 
-                        golpesFilas = new int[golpesFilas.length + 1];
-                        golpesColumnas = new int[golpesColumnas.length + 1];
-
-                        //Generar el golpe al pulsar ENTER, en la casilla que tengamos seleccionada (entre corchetes)
-                        decrementar(filaPosicion, columnaPosicion);
-                        decrementar(filaPosicion + 1, columnaPosicion);
-                        decrementar(filaPosicion - 1, columnaPosicion);
-                        decrementar(filaPosicion, columnaPosicion - 1);
-                        decrementar(filaPosicion, columnaPosicion + 1);
-
-
-                        golpes++;
+                        golpear();
 
                         enterPressed = true;
                         break;
@@ -195,10 +184,25 @@ public class Main {
                             if (golpes == 0) {
                                 golpesFilas = new int[0];
                                 golpesColumnas = new int[0];
+                            } else {
+
+                                int[] auxGolepesFilas = new int[golpes];
+                                int[] auxGolepesColumnas = new int[golpes];
+
+                                for (int i = 0; i < golpes; i++) {
+                                    auxGolepesFilas[i] = golpesFilas[i];
+                                    auxGolepesColumnas[i] = golpesColumnas[i];
+                                }
+
+                                golpesFilas = auxGolepesFilas;
+                                golpesColumnas = auxGolepesColumnas;
+
                             }
                         }
+
                         teclaUPressed = true;
                         break;
+
                     }
                 } else {
                     teclaUPressed = false;
@@ -384,7 +388,7 @@ public class Main {
             }
         }
 
-        golpear();
+        golpearInverso();
 
         copiarTablero();
 
@@ -420,7 +424,7 @@ public class Main {
         }
     }
 
-    public static void golpear() {
+    public static void golpearInverso() {
         for (int i = 0; i < nivel * 3; i++) {
             int fila = rand.nextInt(1, TAM - 1);
             int columna = rand.nextInt(1, TAM - 1);
@@ -432,6 +436,34 @@ public class Main {
             aumentar(fila, columna + 1);
 
         }
+    }
+
+    public static void golpear() {
+
+        int[] auxGolpesFilas = new int[golpes + 1];
+        int[] auxGolpesColumnas = new int[golpes + 1];
+
+        //Segundo copiar los datos actuales del array que ya tengo
+        for (int i = 0; i < golpes; i++) {
+            auxGolpesFilas[i] = golpesFilas[i];
+            auxGolpesColumnas[i] = golpesColumnas[i];
+        }
+
+        auxGolpesFilas[golpes] = filaPosicion;
+        auxGolpesColumnas[golpes] = columnaPosicion;
+
+        golpesFilas = auxGolpesFilas;
+        golpesColumnas = auxGolpesColumnas;
+
+        //Generar el golpe al pulsar ENTER, en la casilla que tengamos seleccionada (entre corchetes)
+        decrementar(filaPosicion, columnaPosicion);
+        decrementar(filaPosicion + 1, columnaPosicion);
+        decrementar(filaPosicion - 1, columnaPosicion);
+        decrementar(filaPosicion, columnaPosicion - 1);
+        decrementar(filaPosicion, columnaPosicion + 1);
+
+
+        golpes++;
     }
 
     public static void aumentar(int fila, int columna) {
@@ -519,9 +551,8 @@ public class Main {
 
     public static void deshacerGolpe() {
         if (golpes > 0) {
-
-            int fila = golpesFilas[golpesFilas.length - 1];
-            int columna = golpesColumnas[golpesColumnas.length - 1];
+            int fila = golpesFilas[golpes - 1];
+            int columna = golpesColumnas[golpes - 1];
 
             aumentar(fila, columna);
             aumentar(fila + 1, columna);
