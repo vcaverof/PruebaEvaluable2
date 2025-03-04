@@ -71,21 +71,21 @@ public class Main {
 
     public static void main(String[] args) {
 
+        //Inicializar la variable de las teclas en A
         String opcion = "A";
         generarTablero(); //Generar tablero lleno de 0
-
-
+        
+        //Bucle general de funcionamiento del juego, mostrando la interfaz y el tablero de juego
         do {
-            //Limpiar pantalla antes de iniciar el juego (para cmd)
-            borrar();
+            borrar();  //Limpiar pantalla antes de iniciar el juego (para cmd)
 
-
-            //Mostrar interfaz
+            //Mostrar interfaz del juego
             System.out.println("Nuevo ( N ) - Recomenzar ( R ) - Deshacer ( U ) - Salir ( S )");
-            System.out.println();
+            System.out.println(); //Salto de linea
 
             mostrarTablero(filaPosicion, columnaPosicion); //Mostrar el tablero generado, con la posición designada seleccionada (1,1)
 
+            //Mostrar interfaz inferior del juego, con las instrucciones
             System.out.print("Nivel de juego ( L ): " + nivel);
             System.out.println("\t\tNuevo nivel");
             System.out.println("Golpes: " + golpes);
@@ -143,7 +143,7 @@ public class Main {
                     rightPressed = false;
                 }
 
-                // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
+                // Verifica si la tecla ENTER es presionada y aún no ha sido registrada
                 if ((User32.INSTANCE.GetAsyncKeyState(VK_RETURN) & 0x8000) != 0) {
                     if (!enterPressed) {
 
@@ -156,7 +156,7 @@ public class Main {
                     enterPressed = false;
                 }
 
-                // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
+                // Verifica si la tecla S es presionada y aún no ha sido registrada
                 if ((User32.INSTANCE.GetAsyncKeyState(TECLA_S) & 0x8000) != 0) {
                     if (!teclaSPressed) {
                         teclaSPressed = true;
@@ -167,7 +167,7 @@ public class Main {
                     teclaSPressed = false;
                 }
 
-                // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
+                // Verifica si la tecla N es presionada y aún no ha sido registrada
                 if ((User32.INSTANCE.GetAsyncKeyState(TECLA_N) & 0x8000) != 0) {
                     if (!teclaNPressed) {
                         teclaNPressed = true;
@@ -180,7 +180,7 @@ public class Main {
                     teclaNPressed = false;
                 }
 
-                // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
+                // Verifica si la tecla U es presionada y aún no ha sido registrada
                 if ((User32.INSTANCE.GetAsyncKeyState(TECLA_U) & 0x8000) != 0) {
                     if (!teclaUPressed) {
                         if (golpes > 0) {
@@ -213,7 +213,7 @@ public class Main {
                     teclaUPressed = false;
                 }
 
-                // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
+                // Verifica si la tecla R es presionada y aún no ha sido registrada
                 if ((User32.INSTANCE.GetAsyncKeyState(TECLA_R) & 0x8000) != 0) {
                     if (!teclaRPressed) {
                         recuperarTablero();
@@ -225,14 +225,14 @@ public class Main {
 
                 }
 
-                // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
-
+                // Verifica si la tecla L es presionada y aún no ha sido registrada
                 if ((User32.INSTANCE.GetAsyncKeyState(TECLA_L) & 0x8000) != 0) {
                     if (!teclaLPressed) {
                         System.out.print("Nivel de juego ( L ): " + nivel + "\t\tNuevo nivel: ");
-                        int nuevoNivel = 0;
+                        int nuevoNivel = 0; //Variable para crear partida nueva con un nuevo nivel
+
                         while (true) {
-                            // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
+                            // Verifica si la tecla 1 es presionada y aún no ha sido registrada
                             if ((User32.INSTANCE.GetAsyncKeyState(TECLA_1) & 0x8000) != 0) {
                                 if (!tecla1Pressed) {
                                     nuevoNivel = 1;
@@ -243,7 +243,7 @@ public class Main {
                                 teclaRPressed = false;
                             }
 
-                            // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
+                            // Verifica si la tecla 2 es presionada y aún no ha sido registrada
                             if ((User32.INSTANCE.GetAsyncKeyState(TECLA_2) & 0x8000) != 0) {
                                 if (!tecla2Pressed) {
                                     nuevoNivel = 2;
@@ -255,7 +255,7 @@ public class Main {
                                 tecla1Pressed = false;
                             }
 
-                            // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
+                            // Verifica si la tecla 3 es presionada y aún no ha sido registrada
                             if ((User32.INSTANCE.GetAsyncKeyState(TECLA_3) & 0x8000) != 0) {
                                 if (!tecla3Pressed) {
                                     nuevoNivel = 3;
@@ -267,7 +267,7 @@ public class Main {
                                 tecla3Pressed = false;
                             }
 
-                            // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
+                            // Verifica si la tecla 4 es presionada y aún no ha sido registrada
                             if ((User32.INSTANCE.GetAsyncKeyState(TECLA_4) & 0x8000) != 0) {
                                 if (!tecla4Pressed) {
                                     nuevoNivel = 4;
@@ -279,7 +279,7 @@ public class Main {
                             }
 
 
-                            // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
+                            // Verifica si la tecla 5 es presionada y aún no ha sido registrada
                             if ((User32.INSTANCE.GetAsyncKeyState(TECLA_5) & 0x8000) != 0) {
                                 if (!tecla5Pressed) {
                                     nuevoNivel = 5;
@@ -290,7 +290,7 @@ public class Main {
                                 tecla5Pressed = false;
                             }
 
-                            // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
+                            // Verifica si la tecla 6 es presionada y aún no ha sido registrada
                             if ((User32.INSTANCE.GetAsyncKeyState(TECLA_6) & 0x8000) != 0) {
                                 if (!tecla6Pressed) {
                                     nuevoNivel = 6;
@@ -301,7 +301,7 @@ public class Main {
                                 tecla6Pressed = false;
                             }
 
-                            // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
+                            // Verifica si la tecla 7 es presionada y aún no ha sido registrada
                             if ((User32.INSTANCE.GetAsyncKeyState(TECLA_7) & 0x8000) != 0) {
                                 if (!tecla7Pressed) {
                                     nuevoNivel = 7;
@@ -312,7 +312,7 @@ public class Main {
                                 tecla7Pressed = false;
                             }
 
-                            // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
+                            // Verifica si la tecla 8 es presionada y aún no ha sido registrada
                             if ((User32.INSTANCE.GetAsyncKeyState(TECLA_8) & 0x8000) != 0) {
                                 if (!tecla8Pressed) {
                                     nuevoNivel = 8;
@@ -323,7 +323,7 @@ public class Main {
                                 tecla8Pressed = false;
                             }
 
-                            // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
+                            // Verifica si la tecla 9 es presionada y aún no ha sido registrada
                             if ((User32.INSTANCE.GetAsyncKeyState(TECLA_9) & 0x8000) != 0) {
                                 if (!tecla9Pressed) {
                                     nuevoNivel = 9;
@@ -333,9 +333,9 @@ public class Main {
                             } else {
                                 tecla9Pressed = false;
                             }
-                        }
+                        }  //Comprobar si cada tecla numérica (1-9) están pulsadas
 
-                        if (nuevoNivel != nivel) {
+                        if (nuevoNivel != nivel) { //Controlar la creación de partida con un nivel igual al actual
                             nivel = nuevoNivel;
                             generarTablero();
                         }
@@ -349,6 +349,7 @@ public class Main {
                 }
             }
 
+            //Comprobar ganador y mostrar mensajes en función de los golpes dados
             if (comprobarGanador()) {
                 int obtenerGolpesEsperados = obtenerGolpesNivel();
                 System.out.println("Enhorabuena, has ganado");
@@ -378,10 +379,10 @@ public class Main {
                     } else {
                         enterPressed = false;
                     }
-                }
+                } //Pulsar enter para volver a generar un tablero y continuar el juego
             }
 
-        } while (!opcion.equals("S"));
+        } while (!opcion.equals("S")); //Condición para terminar el juego, pulsar la tecla S
     }
 
     //Función para generar un tablero
@@ -434,10 +435,12 @@ public class Main {
 
     //Función para rellenar un tablero de 0 con golpes en posiciones aleatorias
     public static void golpearInverso() {
+        //Generar golpes en posiciones aleatorias. La cantidad de golpes será 3 veces el nivel actual
         for (int i = 0; i < nivel * 3; i++) {
             int fila = rand.nextInt(1, TAM - 1);
             int columna = rand.nextInt(1, TAM - 1);
 
+            //Golpear inversamente las posiciones generadas y sus vecinas
             aumentar(fila, columna);
             aumentar(fila + 1, columna);
             aumentar(fila - 1, columna);
@@ -450,22 +453,25 @@ public class Main {
     //Función para generar los golpes del jugador en las posiciones seleccionadas
     public static void golpear() {
 
+        //Generar arrays nuevos para guardar los golpes realizados con una posición más
         int[] auxGolpesFilas = new int[golpes + 1];
         int[] auxGolpesColumnas = new int[golpes + 1];
 
-        //Segundo copiar los datos actuales del array que ya tengo
+        //Copiar los datos actuales del array que ya tengo en el auxiliar creado
         for (int i = 0; i < golpes; i++) {
             auxGolpesFilas[i] = golpesFilas[i];
             auxGolpesColumnas[i] = golpesColumnas[i];
         }
 
+        //Guardar las posiciones del último golpe en la última posición del nuevo array
         auxGolpesFilas[golpes] = filaPosicion;
         auxGolpesColumnas[golpes] = columnaPosicion;
 
+        //Sobreescribir el valor de los arrays principales
         golpesFilas = auxGolpesFilas;
         golpesColumnas = auxGolpesColumnas;
 
-        //Generar el golpe al pulsar ENTER, en la casilla que tengamos seleccionada (entre corchetes)
+        //Decrementar el valor en la posición seleccionada y sus vecinas (lo que sería la acción de golpear del jugador al pulsar ENTER)
         decrementar(filaPosicion, columnaPosicion);
         decrementar(filaPosicion + 1, columnaPosicion);
         decrementar(filaPosicion - 1, columnaPosicion);
@@ -513,7 +519,7 @@ public class Main {
         }
     }
 
-    //Función para mover izquierda la casilla seleccionada
+    //Función para mover a la izquierda la casilla seleccionada
     public static void moverIzquierda(int columnas) {
         if (columnas == 1) {
             columnaPosicion = 6;
@@ -522,7 +528,7 @@ public class Main {
         }
     }
 
-    //Función para mover derecha la casilla seleccionada
+    //Función para mover a la derecha la casilla seleccionada
     public static void moverDerecha(int columnas) {
         if (columnas == 6) {
             columnaPosicion = 1;
@@ -536,42 +542,45 @@ public class Main {
         int golpesNivel = 0;
         switch (nivel) {
             case 1 -> {
-                golpesNivel = 3;
+                golpesNivel = 3; //Nivel 1 es posible realizarlo en 3 golpes
             }
             case 2 -> {
-                golpesNivel = 6;
+                golpesNivel = 6; //Nivel 2 es posible realizarlo en 6 golpes
             }
             case 3 -> {
-                golpesNivel = 9;
+                golpesNivel = 9; //Nivel 3 es posible realizarlo en 9 golpes
             }
             case 4 -> {
-                golpesNivel = 12;
+                golpesNivel = 12; //Nivel 4 es posible realizarlo en 12 golpes
             }
             case 5 -> {
-                golpesNivel = 15;
+                golpesNivel = 15; //Nivel 5 es posible realizarlo en 15 golpes
             }
             case 6 -> {
-                golpesNivel = 18;
+                golpesNivel = 18; //Nivel 6 es posible realizarlo en 18 golpes
             }
             case 7 -> {
-                golpesNivel = 21;
+                golpesNivel = 21; //Nivel 7 es posible realizarlo en 21 golpes
             }
             case 8 -> {
-                golpesNivel = 24;
+                golpesNivel = 24; //Nivel 8 es posible realizarlo en 24 golpes
             }
             case 9 -> {
-                golpesNivel = 27;
+                golpesNivel = 27; //Nivel 9 es posible realizarlo en 27 golpes
             }
         }
-        return golpesNivel;
+        return golpesNivel; //Devolver la cantidad de golpes en funcion del nivel
     }
 
     //Función para golpear inversamente en la ultima posicion golpeada por el jugador
     public static void deshacerGolpe() {
+        //Solo deshacer golpes en caso de que la cantidad de golpes sea superior a 0
         if (golpes > 0) {
+            //Realizar golpe inverso en la ultima posición guardada en nuestros arrays utilizados para dicha función
             int fila = golpesFilas[golpes - 1];
             int columna = golpesColumnas[golpes - 1];
 
+            //Realizar golpe inverso en la posición extraida del array y en sus vecinas
             aumentar(fila, columna);
             aumentar(fila + 1, columna);
             aumentar(fila - 1, columna);
