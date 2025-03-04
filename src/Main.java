@@ -61,13 +61,14 @@ public class Main {
 
 
     //Arrays para guardar los golpes y usarlos al utilizar deshacer
-    private static int[] golpesFilas = new int[100];
-    private static int[] golpesColumnas = new int[100];
+    private static int[] golpesFilas = new int[0];
+    private static int[] golpesColumnas = new int[0];
 
     public static void main(String[] args) {
 
         String opcion = "A";
         generarTablero(); //Generar tablero lleno de 0
+
 
         do {
             //Limpiar pantalla antes de iniciar el juego (para cmd)
@@ -141,12 +142,16 @@ public class Main {
                 if ((User32.INSTANCE.GetAsyncKeyState(VK_RETURN) & 0x8000) != 0) {
                     if (!enterPressed) {
 
+                        golpesFilas = new int[golpesFilas.length + 1];
+                        golpesColumnas = new int[golpesColumnas.length + 1];
+
                         //Generar el golpe al pulsar ENTER, en la casilla que tengamos seleccionada (entre corchetes)
                         decrementar(filaPosicion, columnaPosicion);
                         decrementar(filaPosicion + 1, columnaPosicion);
                         decrementar(filaPosicion - 1, columnaPosicion);
                         decrementar(filaPosicion, columnaPosicion - 1);
                         decrementar(filaPosicion, columnaPosicion + 1);
+
 
                         golpes++;
 
@@ -188,8 +193,8 @@ public class Main {
                             deshacerGolpe();
                             golpes--;
                             if (golpes == 0) {
-                                golpesFilas = new int[100];
-                                golpesColumnas = new int[100];
+                                golpesFilas = new int[0];
+                                golpesColumnas = new int[0];
                             }
                         }
                         teclaUPressed = true;
@@ -514,8 +519,9 @@ public class Main {
 
     public static void deshacerGolpe() {
         if (golpes > 0) {
-            int fila = golpesFilas[golpes - 1];
-            int columna = golpesColumnas[golpes - 1];
+
+            int fila = golpesFilas[golpesFilas.length - 1];
+            int columna = golpesColumnas[golpesColumnas.length - 1];
 
             aumentar(fila, columna);
             aumentar(fila + 1, columna);
