@@ -1,5 +1,5 @@
 /*
-    Víctor Cavero Fernández
+    Cavero Fernández Víctor
  */
 
 import java.io.IOException;
@@ -34,6 +34,7 @@ public class Main {
     public static final int TECLA_L = 0x4C;
     public static final int TAM = 8;
 
+    //Variables utilizadas en los métodos
     private static Random rand = new Random();
     private static int golpes = 0;
     private static int nivel = 5;
@@ -64,7 +65,7 @@ public class Main {
     private static boolean teclaLPressed = false;
 
 
-    //Arrays para guardar los golpes y usarlos al utilizar deshacer
+    //Arrays utilizados al deshacer cada golpe
     private static int[] golpesFilas = new int[0];
     private static int[] golpesColumnas = new int[0];
 
@@ -383,6 +384,7 @@ public class Main {
         } while (!opcion.equals("S"));
     }
 
+    //Función para generar un tablero
     public static void generarTablero() {
         //Inicializar el tablero a 0 y mostrarlo
         for (int i = 1; i < TAM - 1; i++) {
@@ -391,12 +393,13 @@ public class Main {
             }
         }
 
-        golpearInverso();
+        golpearInverso(); //Llamada a la función que rellena el tablero
 
-        copiarTablero();
+        copiarTablero(); //Llamada a la función que copia un tablero generado en otro tablero copia
 
     }
 
+    //Función para imprimir un tablero por pantalla
     public static void mostrarTablero(int filaPosicion, int columnaPosicion) {
         //Mostrar el tablero con los corchetes que seleccionan una posición
         for (int i = 1; i < TAM - 1; i++) {
@@ -411,6 +414,7 @@ public class Main {
         }
     }
 
+    //Función para copiar un tablero en otro tablero copia
     public static void copiarTablero() {
         for (int i = 1; i < TAM - 1; i++) {
             for (int j = 1; j < TAM - 1; j++) {
@@ -419,6 +423,7 @@ public class Main {
         }
     }
 
+    //Función para recuperar un tablero inicial a la hora de rehacer la partida (TECLA R)
     public static void recuperarTablero() {
         for (int i = 1; i < TAM - 1; i++) {
             for (int j = 1; j < TAM - 1; j++) {
@@ -427,6 +432,7 @@ public class Main {
         }
     }
 
+    //Función para rellenar un tablero de 0 con golpes en posiciones aleatorias
     public static void golpearInverso() {
         for (int i = 0; i < nivel * 3; i++) {
             int fila = rand.nextInt(1, TAM - 1);
@@ -441,6 +447,7 @@ public class Main {
         }
     }
 
+    //Función para generar los golpes del jugador en las posiciones seleccionadas
     public static void golpear() {
 
         int[] auxGolpesFilas = new int[golpes + 1];
@@ -466,9 +473,10 @@ public class Main {
         decrementar(filaPosicion, columnaPosicion + 1);
 
 
-        golpes++;
+        golpes++; //Incrementar contador de golpes
     }
 
+    //Función para aumentar una posicion
     public static void aumentar(int fila, int columna) {
         tablero[fila][columna]++;
         if (tablero[fila][columna] > 3) {
@@ -476,6 +484,7 @@ public class Main {
         }
     }
 
+    //Función para disminuir una posicion
     public static void decrementar(int fila, int columna) {
         golpesFilas[golpes] = filaPosicion;
         golpesColumnas[golpes] = columnaPosicion;
@@ -486,6 +495,7 @@ public class Main {
         }
     }
 
+    //Función para mover arriba la casilla seleccionada
     public static void moverArriba(int filas) {
         if (filas == 1) {
             filaPosicion = 6;
@@ -494,6 +504,7 @@ public class Main {
         }
     }
 
+    //Función para mover abajo la casilla seleccionada
     public static void moverAbajo(int filas) {
         if (filas == 6) {
             filaPosicion = 1;
@@ -502,6 +513,7 @@ public class Main {
         }
     }
 
+    //Función para mover izquierda la casilla seleccionada
     public static void moverIzquierda(int columnas) {
         if (columnas == 1) {
             columnaPosicion = 6;
@@ -510,6 +522,7 @@ public class Main {
         }
     }
 
+    //Función para mover derecha la casilla seleccionada
     public static void moverDerecha(int columnas) {
         if (columnas == 6) {
             columnaPosicion = 1;
@@ -518,6 +531,7 @@ public class Main {
         }
     }
 
+    //Función para comprobar si el jugador ha realizado más, menos o justo los golpes necesarios
     public static int obtenerGolpesNivel() {
         int golpesNivel = 0;
         switch (nivel) {
@@ -552,6 +566,7 @@ public class Main {
         return golpesNivel;
     }
 
+    //Función para golpear inversamente en la ultima posicion golpeada por el jugador
     public static void deshacerGolpe() {
         if (golpes > 0) {
             int fila = golpesFilas[golpes - 1];
@@ -565,6 +580,7 @@ public class Main {
         }
     }
 
+    //Función para comprobar si el usuario ha ganado
     public static boolean comprobarGanador() {
         boolean esta = true;
         for (int i = 1; i < TAM - 1; i++) {
@@ -578,6 +594,7 @@ public class Main {
         return esta;
     }
 
+    //Función para borrar pantalla en CMD
     public static void borrar() {
         try {
             new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
