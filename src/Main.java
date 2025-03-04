@@ -1,3 +1,7 @@
+/*
+    Víctor Cavero Fernández
+ */
+
 import java.io.IOException;
 import java.util.Random;
 
@@ -225,11 +229,12 @@ public class Main {
                 if ((User32.INSTANCE.GetAsyncKeyState(TECLA_L) & 0x8000) != 0) {
                     if (!teclaLPressed) {
                         System.out.print("Nivel de juego ( L ): " + nivel + "\t\tNuevo nivel: ");
+                        int nuevoNivel = 0;
                         while (true) {
                             // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
                             if ((User32.INSTANCE.GetAsyncKeyState(TECLA_1) & 0x8000) != 0) {
                                 if (!tecla1Pressed) {
-                                    nivel = 1;
+                                    nuevoNivel = 1;
                                     tecla1Pressed = true;
                                     break;
                                 }
@@ -240,7 +245,7 @@ public class Main {
                             // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
                             if ((User32.INSTANCE.GetAsyncKeyState(TECLA_2) & 0x8000) != 0) {
                                 if (!tecla2Pressed) {
-                                    nivel = 2;
+                                    nuevoNivel = 2;
                                     tecla1Pressed = true;
 
                                     break;
@@ -252,7 +257,7 @@ public class Main {
                             // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
                             if ((User32.INSTANCE.GetAsyncKeyState(TECLA_3) & 0x8000) != 0) {
                                 if (!tecla3Pressed) {
-                                    nivel = 3;
+                                    nuevoNivel = 3;
                                     tecla3Pressed = true;
 
                                     break;
@@ -264,7 +269,7 @@ public class Main {
                             // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
                             if ((User32.INSTANCE.GetAsyncKeyState(TECLA_4) & 0x8000) != 0) {
                                 if (!tecla4Pressed) {
-                                    nivel = 4;
+                                    nuevoNivel = 4;
                                     tecla4Pressed = true;
                                     break;
                                 }
@@ -276,7 +281,7 @@ public class Main {
                             // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
                             if ((User32.INSTANCE.GetAsyncKeyState(TECLA_5) & 0x8000) != 0) {
                                 if (!tecla5Pressed) {
-                                    nivel = 5;
+                                    nuevoNivel = 5;
                                     tecla5Pressed = true;
                                     break;
                                 }
@@ -287,7 +292,7 @@ public class Main {
                             // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
                             if ((User32.INSTANCE.GetAsyncKeyState(TECLA_6) & 0x8000) != 0) {
                                 if (!tecla6Pressed) {
-                                    nivel = 6;
+                                    nuevoNivel = 6;
                                     tecla6Pressed = true;
                                     break;
                                 }
@@ -298,7 +303,7 @@ public class Main {
                             // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
                             if ((User32.INSTANCE.GetAsyncKeyState(TECLA_7) & 0x8000) != 0) {
                                 if (!tecla7Pressed) {
-                                    nivel = 7;
+                                    nuevoNivel = 7;
                                     tecla7Pressed = true;
                                     break;
                                 }
@@ -309,7 +314,7 @@ public class Main {
                             // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
                             if ((User32.INSTANCE.GetAsyncKeyState(TECLA_8) & 0x8000) != 0) {
                                 if (!tecla8Pressed) {
-                                    nivel = 8;
+                                    nuevoNivel = 8;
                                     tecla8Pressed = true;
                                     break;
                                 }
@@ -320,7 +325,7 @@ public class Main {
                             // Verifica si la tecla de flecha derecha es presionada y aún no ha sido registrada
                             if ((User32.INSTANCE.GetAsyncKeyState(TECLA_9) & 0x8000) != 0) {
                                 if (!tecla9Pressed) {
-                                    nivel = 9;
+                                    nuevoNivel = 9;
                                     tecla9Pressed = true;
                                     break;
                                 }
@@ -329,7 +334,11 @@ public class Main {
                             }
                         }
 
-                        generarTablero();
+                        if (nuevoNivel != nivel) {
+                            nivel = nuevoNivel;
+                            generarTablero();
+                        }
+
                         teclaLPressed = true;
                         break;
                     }
@@ -338,12 +347,6 @@ public class Main {
 
                 }
             }
-
-            //Para poner un límite de golpes al juego
-            //if (golpes > nivel * 3) {
-            //System.out.println("Has perdido");
-            // break;
-            //}
 
             if (comprobarGanador()) {
                 int obtenerGolpesEsperados = obtenerGolpesNivel();
