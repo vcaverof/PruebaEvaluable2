@@ -33,6 +33,8 @@ public class Main {
     public static final int TECLA_S = 0x53;
     public static final int TECLA_L = 0x4C;
     public static final int TAM = 8;
+    public static final int GOLPES_NIVEL = 3;
+    public static final int TAM_CASILLAS = 3;
 
     //Variables utilizadas en los métodos
     private static Random rand = new Random();
@@ -74,7 +76,7 @@ public class Main {
         //Inicializar la variable de las teclas en A
         String opcion = "A";
         generarTablero(); //Generar tablero lleno de 0
-        
+
         //Bucle general de funcionamiento del juego, mostrando la interfaz y el tablero de juego
         do {
             borrar();  //Limpiar pantalla antes de iniciar el juego (para cmd)
@@ -436,7 +438,7 @@ public class Main {
     //Función para rellenar un tablero de 0 con golpes en posiciones aleatorias
     public static void golpearInverso() {
         //Generar golpes en posiciones aleatorias. La cantidad de golpes será 3 veces el nivel actual
-        for (int i = 0; i < nivel * 3; i++) {
+        for (int i = 0; i < nivel * GOLPES_NIVEL; i++) {
             int fila = rand.nextInt(1, TAM - 1);
             int columna = rand.nextInt(1, TAM - 1);
 
@@ -485,7 +487,7 @@ public class Main {
     //Función para aumentar una posicion
     public static void aumentar(int fila, int columna) {
         tablero[fila][columna]++;
-        if (tablero[fila][columna] > 3) {
+        if (tablero[fila][columna] > TAM_CASILLAS) {
             tablero[fila][columna] = 0;
         }
     }
@@ -497,7 +499,7 @@ public class Main {
 
         tablero[fila][columna]--;
         if (tablero[fila][columna] < 0) {
-            tablero[fila][columna] = 3;
+            tablero[fila][columna] = TAM_CASILLAS;
         }
     }
 
@@ -542,31 +544,31 @@ public class Main {
         int golpesNivel = 0;
         switch (nivel) {
             case 1 -> {
-                golpesNivel = 3; //Nivel 1 es posible realizarlo en 3 golpes
+                golpesNivel = GOLPES_NIVEL; //Nivel 1 es posible realizarlo en 3 golpes
             }
             case 2 -> {
-                golpesNivel = 6; //Nivel 2 es posible realizarlo en 6 golpes
+                golpesNivel = 2 * GOLPES_NIVEL; //Nivel 2 es posible realizarlo en 6 golpes
             }
             case 3 -> {
-                golpesNivel = 9; //Nivel 3 es posible realizarlo en 9 golpes
+                golpesNivel = 3 * GOLPES_NIVEL; //Nivel 3 es posible realizarlo en 9 golpes
             }
             case 4 -> {
-                golpesNivel = 12; //Nivel 4 es posible realizarlo en 12 golpes
+                golpesNivel = 4 * GOLPES_NIVEL; //Nivel 4 es posible realizarlo en 12 golpes
             }
             case 5 -> {
-                golpesNivel = 15; //Nivel 5 es posible realizarlo en 15 golpes
+                golpesNivel = 5 * GOLPES_NIVEL; //Nivel 5 es posible realizarlo en 15 golpes
             }
             case 6 -> {
-                golpesNivel = 18; //Nivel 6 es posible realizarlo en 18 golpes
+                golpesNivel = 6 * GOLPES_NIVEL; //Nivel 6 es posible realizarlo en 18 golpes
             }
             case 7 -> {
-                golpesNivel = 21; //Nivel 7 es posible realizarlo en 21 golpes
+                golpesNivel = 7 * GOLPES_NIVEL; //Nivel 7 es posible realizarlo en 21 golpes
             }
             case 8 -> {
-                golpesNivel = 24; //Nivel 8 es posible realizarlo en 24 golpes
+                golpesNivel = 8 * GOLPES_NIVEL; //Nivel 8 es posible realizarlo en 24 golpes
             }
             case 9 -> {
-                golpesNivel = 27; //Nivel 9 es posible realizarlo en 27 golpes
+                golpesNivel = 9 * GOLPES_NIVEL; //Nivel 9 es posible realizarlo en 27 golpes
             }
         }
         return golpesNivel; //Devolver la cantidad de golpes en funcion del nivel
